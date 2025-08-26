@@ -9,7 +9,8 @@
       "esnext"
     ],
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "sourceMap": true,
     "declaration": true,
@@ -20,6 +21,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    "isolatedModules": true,
   },
   "include": [
     "src/**/*"

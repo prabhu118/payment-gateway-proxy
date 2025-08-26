@@ -1,0 +1,17 @@
+amount,currency,source,email,expected_status,description
+100,USD,card_small_001,test@small.com,success,Small amount transaction
+2500,USD,card_normal_001,customer@example.com,success,Standard transaction
+15000,EUR,card_euro_001,european@customer.eu,success,International currency
+500000,USD,card_high_001,premium@company.com,blocked,High value transaction
+1000000,USD,card_max_001,enterprise@company.com,blocked,Maximum allowed amount
+0,USD,card_zero_001,invalid@test.com,400,Invalid amount - zero
+-100,USD,card_negative_001,negative@test.com,400,Invalid amount - negative
+1000,USDD,card_currency_001,currency@test.com,400,Invalid currency - too long
+1000,USD,card_email_001,invalid-email,400,Invalid email format
+1000,USD,card_missing_001,missing@test.com,400,Missing required fields
+1000,USD,,empty@source.com,400,Empty source field
+500,GBP,card_gbp_001,british@customer.co.uk,success,British pound transaction
+7500,JPY,card_jpy_001,japanese@customer.jp,success,Japanese yen transaction
+25000,CAD,card_cad_001,canadian@customer.ca,success,Canadian dollar transaction
+100000,USD,card_medium_001,medium@company.com,success,Medium value transaction
+750000,USD,card_large_001,large@company.com,blocked,Large value transaction

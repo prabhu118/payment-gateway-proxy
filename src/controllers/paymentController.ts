@@ -28,9 +28,12 @@ export class PaymentController {
             let { error, value } = chargeRequestSchema.validate(req.body || {}, { abortEarly: false });
 
             if (error) {
+
+                console.log(error.details.map(detail => detail.message.replace(/\\\"/g, "")))
+
                 res.status(400).json({
                     error: 'Invalid request',
-                    message: error.details.map(detail => detail.message)
+                    message: error.details.map(detail => detail.message.replace(/["\\]/g, ""))
                 });
                 return;
             }

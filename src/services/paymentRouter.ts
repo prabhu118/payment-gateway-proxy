@@ -18,7 +18,7 @@ export class PaymentRouterService {
 
     /**
      * Simulates a payment response with a boolean value
-     * @param successRate - Probability of success (0.0 to 1.0), defaults to 0.9 (80% success rate)
+     * @param successRate - Probability of success (0.0 to 1.0), defaults to 0.9 (90% success rate)
      * @param provider - The payment provider
      * @returns boolean - true for successful payment, false for failed payment
      */

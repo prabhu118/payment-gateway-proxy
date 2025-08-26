@@ -1,0 +1,362 @@
+{
+    "info": {
+        "name": "Payment Gateway Proxy API",
+        "description": "Collection for testing the payment gateway proxy service with various scenarios",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:3000",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Charge - Low Risk Transaction",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 2500,\n  \"currency\": \"USD\",\n  \"source\": \"card_123456789\",\n  \"email\": \"customer@example.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - High Value Transaction",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 500000,\n  \"currency\": \"USD\",\n  \"source\": \"card_987654321\",\n  \"email\": \"premium@company.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - International Currency",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 15000,\n  \"currency\": \"EUR\",\n  \"source\": \"card_euro123\",\n  \"email\": \"european@customer.eu\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Small Amount",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 100,\n  \"currency\": \"USD\",\n  \"source\": \"card_small123\",\n  \"email\": \"test@smallamount.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Maximum Amount",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 1000000,\n  \"currency\": \"USD\",\n  \"source\": \"card_max123\",\n  \"email\": \"enterprise@company.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Invalid Amount (Zero)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 0,\n  \"currency\": \"USD\",\n  \"source\": \"card_invalid123\",\n  \"email\": \"invalid@test.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Invalid Amount (Negative)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": -100,\n  \"currency\": \"USD\",\n  \"source\": \"card_negative123\",\n  \"email\": \"negative@test.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Invalid Currency (Too Long)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 1000,\n  \"currency\": \"USDD\",\n  \"source\": \"card_currency123\",\n  \"email\": \"currency@test.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Invalid Email",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 1000,\n  \"currency\": \"USD\",\n  \"source\": \"card_email123\",\n  \"email\": \"invalid-email\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Missing Required Fields",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 1000,\n  \"currency\": \"USD\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Charge - Empty Source",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"amount\": 1000,\n  \"currency\": \"USD\",\n  \"source\": \"\",\n  \"email\": \"empty@source.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/charge",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "charge"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get All Transactions",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/transactions",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "transactions"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Transaction by ID",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/transaction/{{transactionId}}",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "transaction",
+                        "{{transactionId}}"
+                    ],
+                    "variable": [
+                        {
+                            "key": "transactionId",
+                            "value": "txn_123456789",
+                            "description": "Replace with actual transaction ID from previous charge requests"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Non-existent Transaction",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/transaction/nonexistent123",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "transaction",
+                        "nonexistent123"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

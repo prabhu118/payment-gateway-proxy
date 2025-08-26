@@ -19,8 +19,7 @@ export class RiskAssessmentService {
                 triggeredRules.push(rule.ruleName);
             }
         }
-
-        const score: number = Math.min(totalScore, 1.0);
+        const score: number = Math.round(Math.min(totalScore, 1.0) * 10) / 10;
 
         return { score, triggeredRules }
     }

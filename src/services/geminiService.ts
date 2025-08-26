@@ -95,6 +95,7 @@ export class GeminiService {
             explanation = this.generateSimulatedExplanation(request, riskScore, provider, status, triggeredRules);
         }
 
+        this.cache.set(cacheKey, explanation);
         return explanation;
     }
 
@@ -211,8 +212,7 @@ export class GeminiService {
         amount: number
     ): string {
         const amountRange = amount < 5000 ? 'small' : amount < 50000 ? 'medium' : 'large';
-        const rulesKey = triggeredRules.sort().join(',');
-
+        const rulesKey = triggeredRules.sort().map(s => s.toLowerCase().replace(/\s+/g, "_")).join("_");
         return `${Math.round(riskScore * 100)}_${provider}_${status}_${rulesKey}_${amountRange}`;
     }
 }

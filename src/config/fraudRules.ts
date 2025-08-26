@@ -4,12 +4,12 @@ export const fraudRules: FraudRule[] = [
     {
         ruleName: 'Large Amount',
         weight: 0.3,
-        condition: (request: ChargeRequest) => request.amount > 50000 // > $500
+        condition: (request: ChargeRequest) => request.amount > 50000 && request.amount < 100000
     },
     {
         ruleName: 'Very Large Amount',
         weight: 0.4,
-        condition: (request: ChargeRequest) => request.amount > 100000 // > $1000
+        condition: (request: ChargeRequest) => request.amount > 100000
     },
     {
         ruleName: 'Suspicious Domain',
