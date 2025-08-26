@@ -19,7 +19,9 @@ export function createApp() {
 
     // Request logging
     app.use((req: Request, _res: Response, next: NextFunction) => {
-        logger.info(`${req.method} ${req.path}`, { ip: req.ip });
+        logger.info(`${req.method} ${req.path}`, {
+            ip: req.ip, userAgent: req.get('User-Agent')
+        });
         next();
     });
 

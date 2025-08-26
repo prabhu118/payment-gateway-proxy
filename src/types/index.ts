@@ -24,6 +24,7 @@ export type Transaction = {
     response: ChargeResponse;
     metadata: {
         ipAddress?: string;
+        userAgent?: string;
     };
 }
 

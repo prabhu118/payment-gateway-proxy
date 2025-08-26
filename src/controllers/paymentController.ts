@@ -67,6 +67,7 @@ export class PaymentController {
                 response: chargeResponse,
                 metadata: {
                     ipAddress: req.ip,
+                    userAgent: req.get('User-Agent')
                 }
             }
 

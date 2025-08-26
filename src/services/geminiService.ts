@@ -1,3 +1,4 @@
+import NodeCache from 'node-cache';
 import { GoogleGenAI } from '@google/genai';
 import { logger } from '../utils/logger';
 import { ChargeRequest, PaymentProvider, TransactionStatus } from '../types';
@@ -10,10 +11,13 @@ export interface LLMConfig {
 }
 
 export class GeminiService {
+    private cache: NodeCache;
     private genAI: GoogleGenAI | null;
     private config: Required<LLMConfig>;
 
     constructor(geminiConfig: LLMConfig = {}) {
+
+        this.cache = new NodeCache({ stdTTL: 3600 }); // 1 hour
 
         this.config = {
             apiKey: process.env.GEMINI_API_KEY || '',
@@ -51,6 +55,14 @@ export class GeminiService {
         status: TransactionStatus,
         triggeredRules: string[]
     ): Promise<string> {
+
+        const cacheKey = this.generateCacheKey(riskScore, provider, status, triggeredRules, request.amount);
+        const cached = this.cache.get<string>(cacheKey);
+
+        if (cached) {
+            logger.debug('Using cached LLM response', { cacheKey });
+            return cached;
+        }
 
         let explanation: string;
 
@@ -189,5 +201,18 @@ export class GeminiService {
         }
 
         return `Payment processing encountered an issue for the ${amountFormatted} transaction. Risk assessment: ${riskScore}. Our technical team has been notified. Please retry or contact support.`;
+    }
+
+    private generateCacheKey(
+        riskScore: number,
+        provider: PaymentProvider | null,
+        status: TransactionStatus,
+        triggeredRules: string[],
+        amount: number
+    ): string {
+        const amountRange = amount < 5000 ? 'small' : amount < 50000 ? 'medium' : 'large';
+        const rulesKey = triggeredRules.sort().join(',');
+
+        return `${Math.round(riskScore * 100)}_${provider}_${status}_${rulesKey}_${amountRange}`;
     }
 }
