@@ -15,7 +15,7 @@ export class RiskAssessmentService {
 
         for (const rule of fraudRules) {
             if (rule.condition(request)) {
-                totalScore += rule.riskScore;
+                totalScore += rule.weight;
                 triggeredRules.push(rule.ruleName);
             }
         }

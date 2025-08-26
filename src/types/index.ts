@@ -30,7 +30,7 @@ export type Transaction = {
 
 export type FraudRule = {
     ruleName: string;
-    riskScore: number;
+    weight: number;
     condition: (request: ChargeRequest) => boolean;
 }
 
