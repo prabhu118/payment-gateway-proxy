@@ -6,13 +6,15 @@ import { generateTransactionId } from "../utils/helpers";
 import { RiskAssessmentService } from "../services/riskAssessment";
 import { TransactionDataService } from "../services/transactionDataService";
 import { PaymentRouterService } from "../services/paymentRouter";
+import { GeminiService } from "../services/geminiService";
 
 export class PaymentController {
 
     constructor(
         private riskService: RiskAssessmentService,
         private transactionDataService: TransactionDataService,
-        private paymentRouterService: PaymentRouterService
+        private paymentRouterService: PaymentRouterService,
+        private geminiService: GeminiService
     ) { }
 
     /**
@@ -48,12 +50,14 @@ export class PaymentController {
                 status = paymentSuccess ? 'success' : 'error';
             }
 
+            const explanation = await this.geminiService.generateDescriptionFromTags(chargeRequest, riskAssessment.score, provider, status, riskAssessment.triggeredRules);
+
             const chargeResponse: ChargeResponse = {
                 transactionId,
                 provider,
                 status,
                 riskScore: riskAssessment.score,
-                explanation: riskAssessment.triggeredRules.join(', ')
+                explanation
             }
 
             const transactionData: Transaction = {

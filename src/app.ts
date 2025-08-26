@@ -6,6 +6,7 @@ import { PaymentController } from './controllers/paymentController';
 import { RiskAssessmentService } from './services/riskAssessment';
 import { TransactionDataService } from './services/transactionDataService';
 import { PaymentRouterService } from './services/paymentRouter';
+import { GeminiService } from './services/geminiService';
 
 export function createApp() {
     const app = express();
@@ -22,10 +23,12 @@ export function createApp() {
         next();
     });
 
+    // Initialize services
     const riskService = new RiskAssessmentService();
     const transactionDataService = new TransactionDataService();
     const paymentRouterService = new PaymentRouterService();
-    const paymentController = new PaymentController(riskService, transactionDataService, paymentRouterService);
+    const geminiService = new GeminiService();
+    const paymentController = new PaymentController(riskService, transactionDataService, paymentRouterService, geminiService);
 
     // App Routes
     app.post('/charge', (req: Request, res: Response) => paymentController.charge(req, res))

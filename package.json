@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "Mini payment gateway proxy with LLM risk assessment",
   "dependencies": {
+    "@google/genai": "^1.15.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
