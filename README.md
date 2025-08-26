@@ -238,16 +238,10 @@ curl -X POST http://localhost:3000/charge \
 
 ```json
 {
-  "success": true,
-  "data": {
-    "transactionId": "uuid-here",
-    "amount": 75000,
-    "currency": "USD",
-    "status": "processed",
-    "provider": "paypal",
-    "riskScore": 0.3,
-    "triggeredRules": ["Large Amount"],
-    "explanation": "Payment routed to PayPal due to moderate risk factors..."
-  }
+  "transactionId": "uuid-here",
+  "provider": "paypal",
+  "status": "success",
+  "riskScore": 0.3,
+  "explanation": "Payment routed to PayPal due to moderate risk factors..."
 }
 ```
