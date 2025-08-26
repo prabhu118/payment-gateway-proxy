@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import { logger } from './utils/logger';
 import { PaymentController } from './controllers/paymentController';
+import { RiskAssessmentService } from './services/riskAssessment';
+import { TransactionDataService } from './services/transactionDataService';
 
 
 export function createApp() {
@@ -20,10 +22,12 @@ export function createApp() {
         next();
     });
 
-    const paymentController = new PaymentController();
+    const riskService = new RiskAssessmentService();
+    const transactionDataService = new TransactionDataService();
+    const paymentController = new PaymentController(riskService, transactionDataService);
 
     // App Routes
-    app.post('/charge', paymentController.charge)
+    app.post('/charge', (req: Request, res: Response) => paymentController.charge(req, res))
     app.get('/transactions', (_req: Request, _res: Response) => { })
     app.get('/transaction/:id', (_req: Request, _res: Response) => { })
 
